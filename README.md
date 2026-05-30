@@ -17,6 +17,13 @@ Typical steps:
 
 Reference file: `1_ingestion_pipeline.py` implements a basic ingestion flow.
 
+In short:
+
+- Document loading (PDF, DOCX, TXT -> Text)
+- Text Chunking (long text -> smaller pieces)
+- Embedding (text chunks -> vectors)
+- Storage (vectos -> vector db)
+
 ## 2. Retrieval
 
 Purpose: given a user query or prompt, find the most relevant document chunks from the vector store to condition generation.
@@ -38,4 +45,32 @@ Reference file: `2_retrieval_pipeline.py` contains retrieval and prompt-assembly
 - Persist metadata to support provenance and safe filtering.
 - Consider hybrid retrieval (dense + sparse) and reranking for higher accuracy.
 
-If you want, I can add example commands to run the pipelines or expand the README with architecture diagrams.
+Chunking us the 2nd critical step - it determines how your content gets divided for retrieval.
+
+# Top 5 chunking strategies
+
+1. CharacterTextSplitter (Beyond basic chunk_size)
+   - Custom separatos (Split on specific patterns)
+   - Still useful for simple, uniform documents or when speed matters most
+
+2. RecursiveCharacterTextSplitter (Upgrade from CharacterTextSplitter)
+   - Tries to split at natural boundaries (paragraphs, sentences, words)
+   - Falls back gracefully if chunk is too big
+   - Preserves more context than basic splitting
+
+3. Document-Specific Splitting (Respects document structure)
+   - PDF: Splits by pages, sections, headers
+   - Markdown: Splits by headers, code blocks, lists
+   - Each document type gets appropriate treatment
+
+4. Semantic Splitting (Content-aware boundaries)
+   - Uses embeddings to detect topic shifts
+   - Keeps related concepts together
+   - Splits when meaning changes, not just by size
+   - More intelligent but computationally expensive
+
+5. Agentic Splitting (AI-powered chunking)
+   - LLM analyzes content and decides optimal splits
+   - Can understand complex relationships
+   - Adapts to content type autmatically
+   - Most sophisticated but slowest/most expensive
