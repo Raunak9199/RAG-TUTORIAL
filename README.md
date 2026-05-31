@@ -50,6 +50,7 @@ Chunking us the 2nd critical step - it determines how your content gets divided 
 # Top 5 chunking strategies
 
 1. CharacterTextSplitter (Beyond basic chunk_size)
+
    - Custom separatos (Split on specific patterns)
    - Still useful for simple, uniform documents or when speed matters most
 
@@ -74,3 +75,7 @@ Chunking us the 2nd critical step - it determines how your content gets divided 
    - Can understand complex relationships
    - Adapts to content type autmatically
    - Most sophisticated but slowest/most expensive
+
+
+# Langchain Documents
+- A langchain document is basically a class for storing a piece of text and it's associated metadata

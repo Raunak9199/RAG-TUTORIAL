@@ -1,3 +1,8 @@
 /.env
 /db
 /ragvenv
+chunks_*.json
+/dbv1
+/dbv2
+rag_results.json
+failed_chunk.txt
